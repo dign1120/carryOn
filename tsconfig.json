@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
+    "paths": {
+      "*": ["./node_modules/*"]
+    },
     "target": "esnext",
     "module": "esnext",
     "jsx": "react",
