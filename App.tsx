@@ -1,6 +1,13 @@
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {enableScreens} from 'react-native-screens';
 import React, {useEffect} from 'react';
-import {View, Text} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import Home from './src/screens/Home/Home';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+
+const Stack = createNativeStackNavigator();
+enableScreens();
 
 export default function App() {
   useEffect(() => {
@@ -12,10 +19,14 @@ export default function App() {
   }, []);
 
   return (
-    <View className="flex-1 justify-center items-center bg-blue-500">
-      <Text className="text-white text-lg font-extrabold">
-        Hello, NativeWind!
-      </Text>
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{headerShown: false}}
+          initialRouteName="Home">
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
