@@ -27,8 +27,6 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -59,5 +57,9 @@
 		<string>Pretendard-SemiBold.otf</string>
 		<string>Pretendard-Thin.otf</string>
 	</array>
+	<key>allowsInlineMediaPlayback</key>
+	<true/>
+	<key>allowsBackForwardNavigationGestures</key>
+	<true/>
 </dict>
 </plist>

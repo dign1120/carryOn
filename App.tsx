@@ -7,6 +7,7 @@ import Home from './src/screens/Home/Home';
 import InitSetting from './src/screens/Setting/InitSetting';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import ChangeSetting from './src/screens/Setting/ChangeSetting';
+import SrcDestinationSetting from './src/screens/Setting/OriginDestinationSetting';
 
 const Stack = createNativeStackNavigator();
 enableScreens();
@@ -29,6 +30,7 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="ChangeSetting" component={ChangeSetting} />
           <Stack.Screen name="InitSetting" component={InitSetting} />
+          <Stack.Screen name="SrcDestSetting" component={SrcDestinationSetting} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

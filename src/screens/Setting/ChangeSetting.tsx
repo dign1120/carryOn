@@ -16,18 +16,22 @@ const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
 
         <View className='flex flex-row ml-[24px] mr-[24px] bg-[#3B82F6] h-[163px] rounded-md'>
             <View className = "m-[12px]">
-                <View className = "flex-row m-[10px]">
-                    <Text className='font-regular text-[18px] mr-[18px]'>출발지</Text>
-                    <Text className='font-regular text-[18px]'>울산 남구 달동 1310-3</Text>
-                </View>
-                <View className = "flex-row m-[10px]">
-                    <Text className='font-regular text-[18px] mr-[18px]'>도착지</Text>
-                    <Text className='font-regular text-[18px]' >플로르스터디카페 울산옥동점</Text>
-                </View>
-                <View className = "flex-row m-[10px]">
-                    <Text className='font-regular text-[18px] mr-[18px]'>출근시간</Text>
-                    <Text className='font-regular text-[18px]'>오전 8시 20분</Text>
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate("SrcDestSetting")}>
+                    <View className = "flex-row m-[10px]">
+                        <Text className='font-regular text-[18px] mr-[18px]'>출발지</Text>
+                        <Text className='font-regular text-[18px]'>울산 남구 달동 1310-3</Text>
+                    </View>
+                    <View className = "flex-row m-[10px]">
+                        <Text className='font-regular text-[18px] mr-[18px]'>도착지</Text>
+                        <Text className='font-regular text-[18px]' >플로르스터디카페 울산옥동점</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <View className = "flex-row m-[10px]">
+                        <Text className='font-regular text-[18px] mr-[18px]'>출근시간</Text>
+                        <Text className='font-regular text-[18px]'>오전 8시 20분</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
         

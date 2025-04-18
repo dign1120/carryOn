@@ -7,52 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C80B921A6F3F58F76C31292 /* libPods-carryOn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-carryOn.a */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		EB32EC552BC5403292364ABD /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 34A83FB00509416A9F1F58D9 /* Pretendard-Black.otf */; };
 		043E8C84FB8A45AB8E289089 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7C8B6C60FE9747C4B5F199A0 /* Pretendard-Bold.otf */; };
-		6C4963DFFED1431984706900 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B484029346474F41B8D2169B /* Pretendard-ExtraBold.otf */; };
-		FAE5A2B1F51141CE80D2E1BF /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 78430775E7314D0FB5077F78 /* Pretendard-ExtraLight.otf */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		14C7A8E95AF4BCA053F00064 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		15B118224C2A46E9AA198C47 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69C451009BF043BB8253A109 /* Pretendard-Light.otf */; };
 		1719A5A6F60D460798C88313 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6BE371C5C69C4C2BA91AD404 /* Pretendard-Medium.otf */; };
-		FAD1AF85A6F8486B9614AFB4 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 87B7F64B520E4E46984742F8 /* Pretendard-Regular.otf */; };
 		3BC903B103974BCEB8084861 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 98AA2A5C5E9B47288CCB89E5 /* Pretendard-SemiBold.otf */; };
+		6C4963DFFED1431984706900 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B484029346474F41B8D2169B /* Pretendard-ExtraBold.otf */; };
+		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A7D4B66AB7A64FAF8C286A82 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 155B12443BA8450F900209B7 /* Pretendard-Thin.otf */; };
+		E0A6E5335344200DF08B93D5 /* libPods-carryOn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B91F37DC7F7BF61D81FC9B84 /* libPods-carryOn.a */; };
+		EB32EC552BC5403292364ABD /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 34A83FB00509416A9F1F58D9 /* Pretendard-Black.otf */; };
+		FAD1AF85A6F8486B9614AFB4 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 87B7F64B520E4E46984742F8 /* Pretendard-Regular.otf */; };
+		FAE5A2B1F51141CE80D2E1BF /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 78430775E7314D0FB5077F78 /* Pretendard-ExtraLight.otf */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = carryOn;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* carryOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = carryOn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = carryOn/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = carryOn/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = carryOn/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-carryOn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryOn.debug.xcconfig"; path = "Target Support Files/Pods-carryOn/Pods-carryOn.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-carryOn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryOn.release.xcconfig"; path = "Target Support Files/Pods-carryOn/Pods-carryOn.release.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-carryOn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-carryOn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		155B12443BA8450F900209B7 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Thin.otf"; path = "../src/assets/fonts/Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		34A83FB00509416A9F1F58D9 /* Pretendard-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Black.otf"; path = "../src/assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; };
+		69C451009BF043BB8253A109 /* Pretendard-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Light.otf"; path = "../src/assets/fonts/Pretendard-Light.otf"; sourceTree = "<group>"; };
+		6BE371C5C69C4C2BA91AD404 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Medium.otf"; path = "../src/assets/fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = carryOn/AppDelegate.swift; sourceTree = "<group>"; };
+		78430775E7314D0FB5077F78 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraLight.otf"; path = "../src/assets/fonts/Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		7C8B6C60FE9747C4B5F199A0 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.otf"; path = "../src/assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = carryOn/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		87B7F64B520E4E46984742F8 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Regular.otf"; path = "../src/assets/fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		98AA2A5C5E9B47288CCB89E5 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-SemiBold.otf"; path = "../src/assets/fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		B484029346474F41B8D2169B /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraBold.otf"; path = "../src/assets/fonts/Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		B91F37DC7F7BF61D81FC9B84 /* libPods-carryOn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-carryOn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0F8885EC73496EC53F5F1ED /* Pods-carryOn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryOn.debug.xcconfig"; path = "Target Support Files/Pods-carryOn/Pods-carryOn.debug.xcconfig"; sourceTree = "<group>"; };
+		E2DAFE11E0F152207DEA7026 /* Pods-carryOn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryOn.release.xcconfig"; path = "Target Support Files/Pods-carryOn/Pods-carryOn.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		34A83FB00509416A9F1F58D9 /* Pretendard-Black.otf */ = {isa = PBXFileReference; name = "Pretendard-Black.otf"; path = "../src/assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7C8B6C60FE9747C4B5F199A0 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; name = "Pretendard-Bold.otf"; path = "../src/assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B484029346474F41B8D2169B /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; name = "Pretendard-ExtraBold.otf"; path = "../src/assets/fonts/Pretendard-ExtraBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		78430775E7314D0FB5077F78 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; name = "Pretendard-ExtraLight.otf"; path = "../src/assets/fonts/Pretendard-ExtraLight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		69C451009BF043BB8253A109 /* Pretendard-Light.otf */ = {isa = PBXFileReference; name = "Pretendard-Light.otf"; path = "../src/assets/fonts/Pretendard-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6BE371C5C69C4C2BA91AD404 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; name = "Pretendard-Medium.otf"; path = "../src/assets/fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		87B7F64B520E4E46984742F8 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; name = "Pretendard-Regular.otf"; path = "../src/assets/fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		98AA2A5C5E9B47288CCB89E5 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; name = "Pretendard-SemiBold.otf"; path = "../src/assets/fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		155B12443BA8450F900209B7 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; name = "Pretendard-Thin.otf"; path = "../src/assets/fonts/Pretendard-Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,21 +50,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-carryOn.a in Frameworks */,
+				E0A6E5335344200DF08B93D5 /* libPods-carryOn.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* carryOn */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,9 +73,26 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-carryOn.a */,
+				B91F37DC7F7BF61D81FC9B84 /* libPods-carryOn.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		30AD8FB2BC394AE1B73F3EE3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				34A83FB00509416A9F1F58D9 /* Pretendard-Black.otf */,
+				7C8B6C60FE9747C4B5F199A0 /* Pretendard-Bold.otf */,
+				B484029346474F41B8D2169B /* Pretendard-ExtraBold.otf */,
+				78430775E7314D0FB5077F78 /* Pretendard-ExtraLight.otf */,
+				69C451009BF043BB8253A109 /* Pretendard-Light.otf */,
+				6BE371C5C69C4C2BA91AD404 /* Pretendard-Medium.otf */,
+				87B7F64B520E4E46984742F8 /* Pretendard-Regular.otf */,
+				98AA2A5C5E9B47288CCB89E5 /* Pretendard-SemiBold.otf */,
+				155B12443BA8450F900209B7 /* Pretendard-Thin.otf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -129,28 +128,11 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-carryOn.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-carryOn.release.xcconfig */,
+				E0F8885EC73496EC53F5F1ED /* Pods-carryOn.debug.xcconfig */,
+				E2DAFE11E0F152207DEA7026 /* Pods-carryOn.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		30AD8FB2BC394AE1B73F3EE3 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				34A83FB00509416A9F1F58D9 /* Pretendard-Black.otf */,
-				7C8B6C60FE9747C4B5F199A0 /* Pretendard-Bold.otf */,
-				B484029346474F41B8D2169B /* Pretendard-ExtraBold.otf */,
-				78430775E7314D0FB5077F78 /* Pretendard-ExtraLight.otf */,
-				69C451009BF043BB8253A109 /* Pretendard-Light.otf */,
-				6BE371C5C69C4C2BA91AD404 /* Pretendard-Medium.otf */,
-				87B7F64B520E4E46984742F8 /* Pretendard-Regular.otf */,
-				98AA2A5C5E9B47288CCB89E5 /* Pretendard-SemiBold.otf */,
-				155B12443BA8450F900209B7 /* Pretendard-Thin.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -159,13 +141,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "carryOn" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				E2886B01907B4E2A752C961E /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				ACCC6CD3E541BFD8B7AE2D3F /* [CP] Embed Pods Frameworks */,
+				7788E3A9AB9F7885AA30773B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,13 +190,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -230,6 +205,7 @@
 				FAD1AF85A6F8486B9614AFB4 /* Pretendard-Regular.otf in Resources */,
 				3BC903B103974BCEB8084861 /* Pretendard-SemiBold.otf in Resources */,
 				A7D4B66AB7A64FAF8C286A82 /* Pretendard-Thin.otf in Resources */,
+				14C7A8E95AF4BCA053F00064 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +228,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		7788E3A9AB9F7885AA30773B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-carryOn/Pods-carryOn-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-carryOn/Pods-carryOn-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-carryOn/Pods-carryOn-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACCC6CD3E541BFD8B7AE2D3F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,7 +262,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-carryOn/Pods-carryOn-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		E2886B01907B4E2A752C961E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -291,23 +284,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-carryOn/Pods-carryOn-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-carryOn/Pods-carryOn-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-carryOn/Pods-carryOn-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -321,18 +297,10 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* carryOn */;
-			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-carryOn.debug.xcconfig */;
+			baseConfigurationReference = E0F8885EC73496EC53F5F1ED /* Pods-carryOn.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -360,7 +328,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-carryOn.release.xcconfig */;
+			baseConfigurationReference = E2DAFE11E0F152207DEA7026 /* Pods-carryOn.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -453,7 +421,14 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -518,7 +493,13 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
