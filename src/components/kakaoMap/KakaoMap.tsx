@@ -1,8 +1,8 @@
 import React from 'react';
 import { View} from 'react-native';
 import { WebView } from 'react-native-webview';
+import { REACT_APP_KAKAO_MAP_API_KEY } from '@env';
 
-const REACT_APP_KAKAO_MAP_API_KEY = "d83cd8c3f8207bc2ae5fc5486660f5d1";
 type KakaoMapProps = {
     latitude: number;
     longitude: number;
