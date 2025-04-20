@@ -9,9 +9,6 @@ type SrcDestinationSettingProps = {
 };
 
 const SrcDestinationSetting: React.FC<SrcDestinationSettingProps> = ({navigation, route}) => {
-    const [latitude, setLatitude] = useState<number>(33.45070133);
-    const [longitude, setLongitude] = useState<number>(126.570667);
-
     const {
         sourceAddress,
         destAddress,
@@ -19,7 +16,7 @@ const SrcDestinationSetting: React.FC<SrcDestinationSettingProps> = ({navigation
     
     return (
         <View className="bg-white h-full relative">
-            <KakaoMap longitude={longitude} latitude={latitude}/>
+            <KakaoMap/>
             <View className="absolute top-[100px] left-6 right-6 h-[83px] bg-white rounded-xl shadow">
                 <View className='flex-row ml-[18px] mt-[11px] mr-[18px]'>
                     <Text className='text-[18px] font-regular mr-[18px]'>출발지</Text>
