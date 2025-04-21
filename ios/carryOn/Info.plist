@@ -56,6 +56,7 @@
 		<string>Pretendard-Regular.otf</string>
 		<string>Pretendard-SemiBold.otf</string>
 		<string>Pretendard-Thin.otf</string>
+		<string>Ionicons.ttf</string>
 	</array>
 	<key>allowsInlineMediaPlayback</key>
 	<true/>
