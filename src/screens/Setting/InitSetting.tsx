@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import { useLocationStore } from '../../stores/locationStore';
 import DatePicker from 'react-native-date-picker';
-import { useWakeUpTimeStore } from '../../stores/\bwakeUpTimeStore';
+import { useWakeUpTimeStore } from '../../stores/wakeUpTimeStore';
 
 type InitSettingProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
