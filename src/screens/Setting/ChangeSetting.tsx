@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import { useLocationStore } from '../../stores/locationStore';
+import DatePicker from 'react-native-date-picker';
+import { useWakeUpTimeStore } from '../../stores/\bwakeUpTimeStore';
 
 type ChangeSettingProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
@@ -8,7 +10,9 @@ type ChangeSettingProps = {
 
 const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
     const {sourceAddress, destAddress} =useLocationStore();
-    
+    const [isOpenTimePickerModal, setOpenModal] = useState<Boolean>(false);
+    const {wakeUpTime, setWakeUpTime} = useWakeUpTimeStore();
+
     return (
         <SafeAreaView className="bg-white h-full">
         <View className='flex-col mt-[24px] mb-[24px]'>
@@ -29,14 +33,32 @@ const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
                         <Text className='font-regular text-[18px]' >{destAddress?.searchText}</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {() => {
+                    setOpenModal(true);
+                }}>
                     <View className = "flex-row m-[10px]">
                         <Text className='font-regular text-[18px] mr-[18px]'>출근시간</Text>
-                        <Text className='font-regular text-[18px]'>오전 8시 20분</Text>
+                        <Text className='font-regular text-[18px]'>{wakeUpTime?.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric' })}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
+        
+        <DatePicker modal open = {!!isOpenTimePickerModal} date = {wakeUpTime} 
+            mode = "time" 
+            cancelText="취소"
+            confirmText="선택"
+            title = "출근시간 설정"
+
+            onConfirm={(date) => {
+                setWakeUpTime(date);
+                setOpenModal(false);
+            }}
+            
+            onCancel={() => {
+                setOpenModal(false)
+            }}
+        />
         
         <View className='flex mt-[380px] ml-[24px] mr-[24px] bg-[#3B82F6] h-[53px] rounded-md justify-center items-center'>
             <TouchableOpacity onPress={() => navigation.navigate("Home")}>
