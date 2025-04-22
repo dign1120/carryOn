@@ -1,11 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import { useLocationStore } from '../../stores/locationStore';
 
 type HomeProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
 };
 
 const Home: React.FC<HomeProps> = ({navigation}) => {
+  const {sourceAddress, destAddress} = useLocationStore();
+
+  useEffect(() => {
+    if (!sourceAddress?.address || !destAddress?.address) {
+      const timer = setTimeout(() => {
+        navigation.replace('InitSetting');
+      }, 1000);
+
+      return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
+    }
+  }, [sourceAddress, destAddress]);
+
   return (
     <SafeAreaView className="bg-white h-full">
       <View className='flex-row space-x-12 mt-[24px] mb-[24px]'>
@@ -43,11 +56,11 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
       <View className='h-[115px] ml-[24px] mr-[24px] bg-[#3B82F6] rounded-md flex-col'>
         <View className='flex flex-row mt-[21px] ml-[21px] mr-[21px]'>
           <Text className='text-[18px] font-light mr-[9px]'>출발지</Text>
-          <Text className='text-[18px] font-light' >울산 남구 달동 1310-3</Text>
+          <Text className='text-[18px] font-light' >{sourceAddress?.searchText}</Text>
         </View>
         <View className='flex flex-row mt-[21px] ml-[21px] mr-[21px]'>
           <Text className='text-[18px] font-light mr-[9px]'>도착지</Text>
-          <Text className='text-[18px] font-light' >플로르스터디카페 울산옥동점</Text>
+          <Text className='text-[18px] font-light' >{destAddress?.searchText}</Text>
         </View>
       </View>
 
