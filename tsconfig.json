@@ -5,6 +5,7 @@
     "paths": {
       "*": ["./node_modules/*"]
     },
+    "resolveJsonModule": true,
     "target": "esnext",
     "module": "esnext",
     "jsx": "react",

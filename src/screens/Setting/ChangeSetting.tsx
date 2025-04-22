@@ -1,11 +1,14 @@
 import React from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import { useLocationStore } from '../../stores/locationStore';
 
 type ChangeSettingProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
 };
 
 const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
+    const {sourceAddress, destAddress} =useLocationStore();
+    
     return (
         <SafeAreaView className="bg-white h-full">
         <View className='flex-col mt-[24px] mb-[24px]'>
@@ -19,11 +22,11 @@ const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
                 <TouchableOpacity onPress={() => navigation.navigate("SrcDestSetting")}>
                     <View className = "flex-row m-[10px]">
                         <Text className='font-regular text-[18px] mr-[18px]'>출발지</Text>
-                        <Text className='font-regular text-[18px]'>울산 남구 달동 1310-3</Text>
+                        <Text className='font-regular text-[18px]'>{sourceAddress?.searchText}</Text>
                     </View>
                     <View className = "flex-row m-[10px]">
                         <Text className='font-regular text-[18px] mr-[18px]'>도착지</Text>
-                        <Text className='font-regular text-[18px]' >플로르스터디카페 울산옥동점</Text>
+                        <Text className='font-regular text-[18px]' >{destAddress?.searchText}</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>

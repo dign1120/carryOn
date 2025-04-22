@@ -5,7 +5,7 @@ import { REACT_APP_KAKAO_MAP_JAVASCRIPT_API_KEY, REACT_APP_KAKAO_MAP_REST_API_KE
 import { useLocationStore } from '../../stores/locationStore';
 
 export default function KakaoMap() {
-    const {sourceAddress, destAddress} = useLocationStore();
+    const {sourceAddress, destAddress, routeCoordinates, setSourceAddress, setDestAddress} = useLocationStore();
 
     const htmlContent = `
     <!DOCTYPE html>
@@ -23,8 +23,8 @@ export default function KakaoMap() {
         <div id="map"></div>
         <script>
         window.onload = function() {
-            function sendToReactNative(message) {
-                window.ReactNativeWebView.postMessage(message);
+            function sendToReactNative(data) {
+                window.ReactNativeWebView.postMessage(JSON.stringify(data));
             }
 
             if (typeof kakao !== 'undefined' && kakao.maps) {
@@ -68,11 +68,17 @@ export default function KakaoMap() {
 
                             bounds.extend(coords); // 좌표 범위 확장
 
-                            sendToReactNative(label + ' 위치: ' + result.address_name);
+                            sendToReactNative({
+                                type: label,
+                                address: result.address_name,
+                                latitude: parseFloat(result.y),
+                                longitude: parseFloat(result.x)
+                            });
 
                             // 두 마커가 다 찍힌 이후에 지도 bounds 조정
                             if (label === '도착') {
                                 setTimeout(() => {
+                                    drawRoute(${JSON.stringify(routeCoordinates)});
                                     map.setBounds(bounds);
                                 }, 300); // fetch가 비동기라 도착쯤에 호출 (보장되진 않지만 간단)
                             }
@@ -84,12 +90,51 @@ export default function KakaoMap() {
                         sendToReactNative(label + ' 주소 검색 실패: ' + error.message);
                     });
                 });
+
+                function drawRoute(routeCoords) {
+                    // routeCoords는 이미 배열 형태로 전달됨
+                    const positions = routeCoords.map(coord => new kakao.maps.LatLng(coord.latitude, coord.longitude));
+                    var polyline = new kakao.maps.Polyline({
+                        path: positions, // 경로 좌표
+                        strokeWeight: 5,  // 선의 두께
+                        strokeColor: '#4D91FF',  // 선의 색상
+                        strokeOpacity: 1,  // 선의 불투명도
+                        strokeStyle: 'solid'  // 선의 스타일
+                    });
+
+                    polyline.setMap(map); // 지도에 경로 그리기
+                }
             }
         };
         </script>
     </body>
     </html>
     `;
+
+        const handleMessage = (event: any) => {
+            try {
+                const data = JSON.parse(event.nativeEvent.data);
+                if (data.type === '출발') {
+                    setSourceAddress({
+                    ...sourceAddress!,
+                    coordinates: {
+                        latitude: data.latitude,
+                        longitude: data.longitude
+                    }
+                    });
+                } else if (data.type === '도착') {
+                    setDestAddress({
+                    ...destAddress!,
+                    coordinates: {
+                        latitude: data.latitude,
+                        longitude: data.longitude
+                    }
+                    });
+            } 
+            } catch (err) {
+                console.error('Failed to parse message from WebView:', err);
+            }
+        };
 
 return (
     <View className='flex-1'>
@@ -106,7 +151,7 @@ return (
             window.ReactNativeWebView.postMessage(message);
         }
         })();`}
-        onMessage={(event) => console.log(event.nativeEvent.data)}
+        onMessage={handleMessage}
     />
     </View>
 );
