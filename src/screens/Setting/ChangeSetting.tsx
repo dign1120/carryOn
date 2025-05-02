@@ -2,16 +2,84 @@ import React, {useState} from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import { useLocationStore } from '../../stores/locationStore';
 import DatePicker from 'react-native-date-picker';
-import { useWakeUpTimeStore } from '../../stores/wakeUpTimeStore';
+import { useworkoutTimeStore } from '../../stores/workoutTimeStore';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type ChangeSettingProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
 };
 
 const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
-    const {sourceAddress, destAddress} =useLocationStore();
+    const {sourceAddress, destAddress, routeCoordinates} =useLocationStore();
     const [isOpenTimePickerModal, setOpenModal] = useState<Boolean>(false);
-    const {wakeUpTime, setWakeUpTime} = useWakeUpTimeStore();
+    const {workoutTime, setWorkoutTime} = useworkoutTimeStore();
+
+    const updateMyLocationInfo = async () => {
+        if(!sourceAddress?.address){
+            alert("출발지를 입력해주세요");
+            return;
+        }
+
+        if(!destAddress?.address){
+            alert("목적지 입력해주세요");
+            return;
+        }
+
+        const token = await AsyncStorage.getItem("jwt-token");
+
+        if (!token) {
+            alert("인증 정보가 없습니다. 다시 로그인해주세요.");
+            navigation.navigate("Login");
+            return;
+        }
+
+        await axios.post('http://127.0.0.1:8080/api/setting-location',
+            {
+                "sourceAddress" : sourceAddress.address,
+                "sourceSearched" : sourceAddress.searchText,
+                "destAddress" : destAddress.address,
+                "destSearched" : destAddress.searchText
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        await axios.post('http://127.0.0.1:8080/api/setting-coords',
+            {
+                "sourceLatitude" : sourceAddress.coordinates?.latitude,
+                "sourceLongitude" : sourceAddress.coordinates?.longitude,
+                "destLatitude" : destAddress.coordinates?.latitude,
+                "destLongitude" : destAddress.coordinates?.longitude,
+                "totalPathCoords" : routeCoordinates
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        const localWorkoutTime = new Date(workoutTime);
+        const kstOffset = 15 * 60 * 60 * 1000; // KST는 UTC보다 9시간 차이
+        const utcWorkoutTime = new Date(localWorkoutTime.getTime() - kstOffset);
+
+        await axios.post('http://127.0.0.1:8080/api/setting-worktime',
+            {
+                "startTime" : utcWorkoutTime.toISOString()
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
+
+        navigation.navigate("Home");
+    }
 
     return (
         <SafeAreaView className="bg-white h-full">
@@ -38,20 +106,20 @@ const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
                 }}>
                     <View className = "flex-row m-[10px]">
                         <Text className='font-regular text-[18px] mr-[18px]'>출근시간</Text>
-                        <Text className='font-regular text-[18px]'>{wakeUpTime?.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric' })}</Text>
+                        <Text className='font-regular text-[18px]'>{workoutTime?.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric' })}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
         
-        <DatePicker modal open = {!!isOpenTimePickerModal} date = {wakeUpTime} 
+        <DatePicker modal open = {!!isOpenTimePickerModal} date = {workoutTime} 
             mode = "time" 
             cancelText="취소"
             confirmText="선택"
             title = "출근시간 설정"
 
             onConfirm={(date) => {
-                setWakeUpTime(date);
+                setWorkoutTime(date);
                 setOpenModal(false);
             }}
             
@@ -61,7 +129,8 @@ const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
         />
         
         <View className='flex mt-[380px] ml-[24px] mr-[24px] bg-[#3B82F6] h-[53px] rounded-md justify-center items-center'>
-            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <TouchableOpacity onPress={updateMyLocationInfo}
+                >
                 <Text className='font-regular text-[18px]'>이대로 설정하기</Text>
             </TouchableOpacity>
         </View>

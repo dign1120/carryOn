@@ -1,23 +1,60 @@
 import React, {useEffect} from 'react';
 import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import { useLocationStore } from '../../stores/locationStore';
+import { fetchCoords, fetchLocation, fetchMyWorkoutTime, fetchSearched } from '../../utils/swrFetcher';
+import useSWR from 'swr';
+import { useworkoutTimeStore } from '../../stores/workoutTimeStore';
 
 type HomeProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
 };
 
 const Home: React.FC<HomeProps> = ({navigation}) => {
-  const {sourceAddress, destAddress} = useLocationStore();
+  const {sourceAddress, destAddress, setSourceAddress, setDestAddress, setRouteCoordinates} = useLocationStore();
+  const {setWorkoutTime} = useworkoutTimeStore();
+
+  const { data: locationData, error: locationError, isLoading: locationLoading } = useSWR('location', fetchLocation);
+  const { data: coordsData, error: coordsError, isLoading: coordsLoading } = useSWR('coords', fetchCoords);
+  const { data: workoutTime, error: workoutError } = useSWR('workout-time', fetchMyWorkoutTime);
+  const { data: searchedData, error: searchedError } = useSWR('searched', fetchSearched);
 
   useEffect(() => {
-    if (!sourceAddress?.address || !destAddress?.address) {
-      const timer = setTimeout(() => {
-        navigation.replace('InitSetting');
-      }, 1000);
-
-      return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
+    if (locationData && coordsData) {
+      setSourceAddress({
+        ...sourceAddress!,
+        searchText : locationData.sourceSearched,
+        address : locationData.sourceAddress,
+        coordinates: {
+            latitude: coordsData.sourceLatitude,
+            longitude: coordsData.sourceLongitude
+        }
+        })
+      setDestAddress({
+        ...destAddress!,
+        searchText : locationData.destSearched,
+        address : locationData.destAddress,
+        coordinates: {
+            latitude: coordsData.destLatitude,
+            longitude: coordsData.destLongitude
+        }
+        })
+      setRouteCoordinates(coordsData.totalPathCoords);
     }
-  }, [sourceAddress, destAddress]);
+
+    if(workoutTime){
+      setWorkoutTime(new Date(workoutTime.startTime));
+    }
+  }, [locationData, coordsData, workoutTime, searchedData]);
+
+  useEffect(() => {
+    const allLoaded = !locationLoading && !coordsLoading;
+    const isMissing = !locationData?.sourceAddress || !locationData?.destAddress;
+
+    if (allLoaded && isMissing) {
+      navigation.replace('InitSetting');
+    }
+  }, [sourceAddress, destAddress, locationLoading, coordsLoading]);
+
 
   return (
     <SafeAreaView className="bg-white h-full">

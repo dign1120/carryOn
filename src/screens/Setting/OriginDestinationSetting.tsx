@@ -45,31 +45,31 @@ const SrcDestinationSetting: React.FC<SrcDestinationSettingProps> = ({navigation
         const { latitude: endY, longitude: endX } = destAddress.coordinates;
     
         try {
-        // const res = await axios.post(
-        //     'https://apis.openapi.sk.com/transit/routes',
-        //     {
-        //     startX: String(startX),
-        //     startY: String(startY),
-        //     endX: String(endX),
-        //     endY: String(endY),
-        //     count: 10,
-        //     lang: 0,
-        //     format: 'json'
-        //     },
-        //     {
-        //     headers: {
-        //         accept: 'application/json',
-        //         appKey: `${REACT_APP_SK_OPEN_API_KEY}`,
-        //         'content-type': 'application/json'
-        //     }
-        //     }
-        // );
-        // const result = res.data;
+        const res = await axios.post(
+            'https://apis.openapi.sk.com/transit/routes',
+            {
+            startX: String(startX),
+            startY: String(startY),
+            endX: String(endX),
+            endY: String(endY),
+            count: 10,
+            lang: 0,
+            format: 'json'
+            },
+            {
+            headers: {
+                accept: 'application/json',
+                appKey: `${REACT_APP_SK_OPEN_API_KEY}`,
+                'content-type': 'application/json'
+            }
+            }
+        );
+        const result = res.data;
 
         const mock = tMap;
     
         // 응답 파싱해서 경로 좌표 추출
-        const fastest_route = findFastestItinerary(mock);
+        const fastest_route = findFastestItinerary(result);
         const routes = fastest_route?.legs || [];
         const allCoords: { latitude: number; longitude: number }[] = [];
     
