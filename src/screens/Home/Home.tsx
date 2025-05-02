@@ -25,8 +25,8 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         searchText : locationData.sourceSearched,
         address : locationData.sourceAddress,
         coordinates: {
-            latitude: coordsData.sourceLatitude,
-            longitude: coordsData.sourceLongitude
+            latitude: coordsData[0].sourceLatitude,
+            longitude: coordsData[0].sourceLongitude
         }
         })
       setDestAddress({
@@ -34,11 +34,12 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         searchText : locationData.destSearched,
         address : locationData.destAddress,
         coordinates: {
-            latitude: coordsData.destLatitude,
-            longitude: coordsData.destLongitude
+            latitude: coordsData[0].destLatitude,
+            longitude: coordsData[0].destLongitude
         }
         })
-      setRouteCoordinates(coordsData.totalPathCoords);
+
+      setRouteCoordinates(coordsData[0].totalPathCoords);
     }
 
     if(workoutTime){
