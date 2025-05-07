@@ -3,8 +3,13 @@ import { View} from 'react-native';
 import { WebView } from 'react-native-webview';
 import { REACT_APP_KAKAO_MAP_JAVASCRIPT_API_KEY, REACT_APP_KAKAO_MAP_REST_API_KEY } from '@env';
 import { useLocationStore } from '../../stores/locationStore';
+import { CctvItem } from '../../types/cctv';
 
-export default function KakaoMap() {
+type KakaoMapProps = {
+    cctvList?: CctvItem[];
+};
+
+export default function KakaoMap({ cctvList = []}: KakaoMapProps) {
     const {sourceAddress, destAddress, routeCoordinates, setSourceAddress, setDestAddress} = useLocationStore();
 
     const htmlContent = `
@@ -104,6 +109,34 @@ export default function KakaoMap() {
 
                     polyline.setMap(map); // 지도에 경로 그리기
                 }
+
+                // CCTV 마커 표시
+                const cctvList = ${JSON.stringify(cctvList)};
+                if (Array.isArray(cctvList)) {
+                    const imageSrc = 'https://raw.githubusercontent.com/dign1120/carryOn_app/main/src/assets/icons/cctv-icon.png';
+                    const imageSize = new kakao.maps.Size(35, 35); // 마커 이미지 크기
+                    const imageOption = { offset: new kakao.maps.Point(35, 35) }; // 이미지 내 기준점
+
+                    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption); // 마커 이미지 객체
+
+                    cctvList.forEach(cctv => {
+                        const position = new kakao.maps.LatLng(cctv.coordy, cctv.coordx); // CCTV 위치
+
+                        const marker = new kakao.maps.Marker({
+                            map: map,
+                            position: position,
+                            image: markerImage // 이미지 마커 적용
+                        });
+
+                        // 클릭 이벤트 추가
+                        marker.addListener('click', function() {
+                            sendToReactNative({
+                                type: 'CCTV Clicked',
+                                cctv
+                            });
+                        });
+                    });
+                }
             }
         };
         </script>
@@ -130,7 +163,9 @@ export default function KakaoMap() {
                         longitude: data.longitude
                     }
                     });
-            } 
+            } else if (data.type === 'CCTV Clicked') {
+                console.log('CCTV Clicked:', data.cctv);
+            }
             } catch (err) {
                 console.error('Failed to parse message from WebView:', err);
             }
