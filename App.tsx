@@ -12,6 +12,8 @@ import SrcDestinationSetting from './src/screens/Setting/OriginDestinationSettin
 import SrcInputPage from './src/screens/Setting/SrcInputPage';
 import DestInputPage from './src/screens/Setting/DestInputPage';
 import Login from './src/screens/Login/Login';
+const jwtDecode = require('jwt-decode');
+
 
 const Stack = createNativeStackNavigator();
 enableScreens();
@@ -23,10 +25,23 @@ export default function App() {
     const checkAuthentication = async () => {
       try {
         const token = await AsyncStorage.getItem('jwt-token');
-        setIsAuthenticated(!!token); // 토큰이 있으면 true, 없으면 false
+        if (token && !isTokenExpired(token)) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
       } catch (error) {
         console.error('AsyncStorage error:', error);
         setIsAuthenticated(false);
+      }
+    };
+
+    const isTokenExpired = (token: string) => {
+      try {
+        const decoded: any = jwtDecode(token);
+        return decoded.exp * 1000 < Date.now();
+      } catch (e) {
+        return true;
       }
     };
 
