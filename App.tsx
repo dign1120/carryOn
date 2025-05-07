@@ -13,7 +13,7 @@ import SrcInputPage from './src/screens/Setting/SrcInputPage';
 import DestInputPage from './src/screens/Setting/DestInputPage';
 import Login from './src/screens/Login/Login';
 import DetailKakaoMap from './src/screens/Map/DetailKakaoMap';
-const jwtDecode = require('jwt-decode');
+import { jwtDecode } from "jwt-decode";
 
 
 const Stack = createNativeStackNavigator();
