@@ -1,9 +1,10 @@
-import React from 'react';
-import { View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Modal, TouchableOpacity, Text} from 'react-native';
 import { WebView } from 'react-native-webview';
 import { REACT_APP_KAKAO_MAP_JAVASCRIPT_API_KEY, REACT_APP_KAKAO_MAP_REST_API_KEY } from '@env';
 import { useLocationStore } from '../../stores/locationStore';
 import { CctvItem } from '../../types/cctv';
+import Video from 'react-native-video';
 
 type KakaoMapProps = {
     cctvList?: CctvItem[];
@@ -11,6 +12,12 @@ type KakaoMapProps = {
 
 export default function KakaoMap({ cctvList = []}: KakaoMapProps) {
     const {sourceAddress, destAddress, routeCoordinates, setSourceAddress, setDestAddress} = useLocationStore();
+    const [selectedCctv, setSelectedCctv] = useState<CctvItem | null>(null);
+
+
+    useEffect(() => {
+        console.log(selectedCctv);
+    }, [selectedCctv])
 
     const htmlContent = `
     <!DOCTYPE html>
@@ -164,7 +171,7 @@ export default function KakaoMap({ cctvList = []}: KakaoMapProps) {
                     }
                     });
             } else if (data.type === 'CCTV Clicked') {
-                console.log('CCTV Clicked:', data.cctv);
+                setSelectedCctv(data.cctv);
             }
             } catch (err) {
                 console.error('Failed to parse message from WebView:', err);
@@ -188,6 +195,37 @@ return (
         })();`}
         onMessage={handleMessage}
     />
+
+    {/* 모달창 */}
+    <Modal
+            transparent={true}
+            visible={selectedCctv !== null}
+            animationType="fade"
+            onRequestClose={() => setSelectedCctv(null)}
+        >
+            <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
+                <View className="bg-white p-1 rounded-lg w-full">
+                    {selectedCctv && (
+                        <View>
+                            <Video
+                                    source={{uri: selectedCctv.cctvurl}} // 스트리밍 URL
+                                    style={{ width: '100%', height: 500 }}
+                                    controls={true}  // 기본적인 비디오 컨트롤러 제공
+                                    resizeMode="cover"  // 비디오 크기 조절 모드
+                                    onError={(e) => console.error("비디오 스트리밍 에러:", e)}
+                                    onLoad={(e) => console.log("비디오 로드됨:", e)}
+                            />
+                        </View>
+                    )}
+                    <TouchableOpacity
+                        className="mt-4 bg-blue-500 p-2 rounded"
+                        onPress={() => setSelectedCctv(null)}
+                    >
+                        <Text className="text-white text-center">닫기</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
     </View>
 );
 }

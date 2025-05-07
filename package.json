@@ -25,6 +25,7 @@
     "react-native-screens": "^4.10.0",
     "react-native-splash-screen": "^3.3.0",
     "react-native-vector-icons": "^10.2.0",
+    "react-native-video": "^6.13.0",
     "react-native-webview": "^13.13.5",
     "swr": "^2.3.3",
     "zustand": "^5.0.3"
