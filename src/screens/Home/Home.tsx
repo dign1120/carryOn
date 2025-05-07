@@ -4,6 +4,7 @@ import { useLocationStore } from '../../stores/locationStore';
 import { fetchCoords, fetchLocation, fetchMyWorkoutTime, fetchSearched } from '../../utils/swrFetcher';
 import useSWR from 'swr';
 import { useworkoutTimeStore } from '../../stores/workoutTimeStore';
+import KakaoMap from '../../components/kakaoMap/KakaoMap';
 
 type HomeProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
@@ -86,10 +87,11 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         </View>
       </View>
 
-      <View className='mt-[24px] ml-[24px] mr-[24px] mb-[24px] h-[345px] bg-slate-500 rounded-md'>
-        <Image source={require("../../assets/images/kakaoMap.png")} className='w-full h-full'/>
-      
-      </View>
+      <TouchableOpacity onPress={() => navigation.navigate('KakaoMapPage')}>
+        <View className='mt-[24px] ml-[24px] mr-[24px] mb-[24px] h-[345px] bg-slate-500 rounded-md'>
+          <KakaoMap />      
+        </View>
+      </TouchableOpacity>
 
       <View className='h-[115px] ml-[24px] mr-[24px] bg-[#3B82F6] rounded-md flex-col'>
         <View className='flex flex-row mt-[21px] ml-[21px] mr-[21px]'>

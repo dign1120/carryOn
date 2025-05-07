@@ -12,6 +12,7 @@ import SrcDestinationSetting from './src/screens/Setting/OriginDestinationSettin
 import SrcInputPage from './src/screens/Setting/SrcInputPage';
 import DestInputPage from './src/screens/Setting/DestInputPage';
 import Login from './src/screens/Login/Login';
+import DetailKakaoMap from './src/screens/Map/DetailKakaoMap';
 const jwtDecode = require('jwt-decode');
 
 
@@ -67,6 +68,7 @@ export default function App() {
           <Stack.Screen name="SrcDestSetting" component={SrcDestinationSetting} />
           <Stack.Screen name="SrcInputPage" component={SrcInputPage} />
           <Stack.Screen name="DestInputPage" component={DestInputPage} />
+          <Stack.Screen name="KakaoMapPage" component = {DetailKakaoMap} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
