@@ -5,6 +5,7 @@ import { REACT_APP_KAKAO_MAP_JAVASCRIPT_API_KEY, REACT_APP_KAKAO_MAP_REST_API_KE
 import { useLocationStore } from '../../stores/locationStore';
 import { CctvItem } from '../../types/cctv';
 import Video from 'react-native-video';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 type KakaoMapProps = {
     cctvList?: CctvItem[];
@@ -203,29 +204,33 @@ return (
             animationType="fade"
             onRequestClose={() => setSelectedCctv(null)}
         >
-            <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
+            <View className="flex-1 justify-center items-center bg-black/50">
                 <View className="bg-white p-1 rounded-lg w-full">
                     {selectedCctv && (
                         <View>
+                            <View className="flex-row items-center mb-1 px-2">
+                                <TouchableOpacity onPress={() => setSelectedCctv(null)}>
+                                    <Icon name="chevron-back" size={24} color="#000" />
+                                </TouchableOpacity>
+
+                                <Text className="flex-1 text-center text-base text-gray-800 mr-[24px]">
+                                    {selectedCctv.cctvname}
+                                </Text>
+                            </View>
                             <Video
                                     source={{uri: selectedCctv.cctvurl}} // 스트리밍 URL
                                     style={{ width: '100%', height: 500 }}
-                                    controls={true}  // 기본적인 비디오 컨트롤러 제공
+                                    controls={false}  // 기본적인 비디오 컨트롤러 제공
                                     resizeMode="cover"  // 비디오 크기 조절 모드
                                     onError={(e) => console.error("비디오 스트리밍 에러:", e)}
                                     onLoad={(e) => console.log("비디오 로드됨:", e)}
                             />
                         </View>
                     )}
-                    <TouchableOpacity
-                        className="mt-4 bg-blue-500 p-2 rounded"
-                        onPress={() => setSelectedCctv(null)}
-                    >
-                        <Text className="text-white text-center">닫기</Text>
-                    </TouchableOpacity>
+                    
                 </View>
             </View>
-        </Modal>
+    </Modal>
     </View>
 );
 }
