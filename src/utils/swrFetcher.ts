@@ -1,5 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {REACT_APP_WEATHER_OPEN_API_KEY} from '@env';
+import { convertLatLonToGrid } from './convertLatLonToGrid';
 
 export const fetchLocation = async () => {
     const token = await AsyncStorage.getItem('jwt-token');
@@ -33,5 +35,50 @@ export const fetchMyWorkoutTime = async () => {
     return response.data;
 };
 
+export const fetchWeatherData = async (lat : number, lon : number) => {
+    const baseUrl = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst';
 
+    const getBaseTime = () => {
+        const now = new Date();
+        const hour = now.getHours();
+    
+        // 정각을 맞추기 위해 분은 00으로 고정
+        const baseTime = `${hour < 10 ? '0' : ''}${hour}00`;
+        return baseTime;
+    };
+        
+    const getBaseDate = () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1; // 월은 0부터 시작하므로 1을 더함
+        const day = now.getDate();
+    
+        // 두 자릿수를 맞추기 위해 0을 추가
+        const baseDate = `${year}${month < 10 ? '0' : ''}${month}${day < 10 ? '0' : ''}${day}`;
+        return baseDate;
+    };
+    
+    const { x: nx, y: ny } = convertLatLonToGrid(lat, lon);
+    const base_date = getBaseDate();
+    const base_time = getBaseTime();
+    
+    const params = {
+        serviceKey: decodeURIComponent(REACT_APP_WEATHER_OPEN_API_KEY),
+        pageNo: '1',
+        numOfRows: '1000',
+        dataType: 'json',
+        base_date: base_date,
+        base_time: base_time,
+        nx: nx.toString(),
+        ny: ny.toString(),
+    };
+
+    try {
+    const response = await axios.get(baseUrl, { params });
+    return response.data;
+    } catch (error) {
+    console.error('Weather data fetch error:', error);
+    throw error;
+    }
+};
 

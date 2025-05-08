@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import { useLocationStore } from '../../stores/locationStore';
-import { fetchCoords, fetchLocation, fetchMyWorkoutTime, fetchSearched } from '../../utils/swrFetcher';
+import { fetchCoords, fetchLocation, fetchMyWorkoutTime, fetchSearched, fetchWeatherData } from '../../utils/swrFetcher';
 import useSWR from 'swr';
 import { useworkoutTimeStore } from '../../stores/workoutTimeStore';
 import KakaoMap from '../../components/kakaoMap/KakaoMap';
+import { WeatherResponse } from '../../types/weather';
 
 type HomeProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
@@ -13,11 +14,17 @@ type HomeProps = {
 const Home: React.FC<HomeProps> = ({navigation}) => {
   const {sourceAddress, destAddress, setSourceAddress, setDestAddress, setRouteCoordinates} = useLocationStore();
   const {setWorkoutTime} = useworkoutTimeStore();
+  const [temperature, setTemperature] = useState<string>("");
 
   const { data: locationData, error: locationError, isLoading: locationLoading } = useSWR('location', fetchLocation);
   const { data: coordsData, error: coordsError, isLoading: coordsLoading } = useSWR('coords', fetchCoords);
   const { data: workoutTime, error: workoutError } = useSWR('workout-time', fetchMyWorkoutTime);
   const { data: searchedData, error: searchedError } = useSWR('searched', fetchSearched);
+  const { data: weatherData, error: weatherError } = useSWR<WeatherResponse>(
+      sourceAddress?.coordinates?.latitude && sourceAddress.coordinates.longitude ? ['weather', sourceAddress?.coordinates?.latitude, sourceAddress.coordinates.longitude] : null,
+      ([, lat, lon]: [string, number, number]) => fetchWeatherData(lat, lon)
+    );
+  
 
   useEffect(() => {
     if (locationData && coordsData) {
@@ -57,6 +64,12 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
     }
   }, [sourceAddress, destAddress, locationLoading, coordsLoading]);
 
+  useEffect(() => {
+    const temp = weatherData?.response?.body?.items?.item
+    .find((item) => item.category === 'T1H')
+    ?.obsrValue ?? '정보 없음';
+    setTemperature(temp);  // 값을 상태로 설정
+  }, [weatherData])
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -79,7 +92,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         <View className='m-[15px] flex-1'>
           <Text className='text-center text-[15px]'>현재 날씨</Text>
           <View className='flex-row align-middle justify-center mb-1'>
-            <Text className='text-[15px]'>18 °C</Text>
+            <Text className='text-[15px]'>{temperature} °C</Text>
             <Text className='ml-1 bg-[#2561A0] p-[2px] text-white font-regular rounded-lg text-[12px]'>맑음</Text>
           </View>
           <Image source={require("../../assets/icons/weather_icon.png")}
