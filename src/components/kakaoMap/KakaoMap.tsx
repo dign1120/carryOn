@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, Modal, TouchableOpacity, Text} from 'react-native';
+import { View, Modal, TouchableOpacity, Text, TouchableWithoutFeedback} from 'react-native';
 import { WebView } from 'react-native-webview';
-import { REACT_APP_KAKAO_MAP_JAVASCRIPT_API_KEY, REACT_APP_KAKAO_MAP_REST_API_KEY } from '@env';
+import { REACT_APP_KAKAO_MAP_JAVASCRIPT_API_KEY, REACT_APP_KAKAO_MAP_REST_API_KEY, REACT_APP_UTIC_OPEN_API_KEY } from '@env';
 import { useLocationStore } from '../../stores/locationStore';
-import { CctvItem } from '../../types/cctv';
+import { CctvItem, NearestCctvDto } from '../../types/cctv';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 type KakaoMapProps = {
     cctvList?: CctvItem[];
+    nearestCctvList?: NearestCctvDto[];
 };
 
-export default function KakaoMap({ cctvList = []}: KakaoMapProps) {
+export default function KakaoMap({ cctvList = [], nearestCctvList = []}: KakaoMapProps) {
     const {sourceAddress, destAddress, routeCoordinates, setSourceAddress, setDestAddress} = useLocationStore();
     const [selectedCctv, setSelectedCctv] = useState<CctvItem | null>(null);
-
-
-    useEffect(() => {
-        console.log(selectedCctv);
-    }, [selectedCctv])
-
+    const [selectedNearestCctv, setSelectedNearestCctv] = useState<NearestCctvDto | null>(null);
+    
     const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -145,6 +142,34 @@ export default function KakaoMap({ cctvList = []}: KakaoMapProps) {
                         });
                     });
                 }
+
+
+                const nearestCctvList = ${JSON.stringify(nearestCctvList)};
+                if (Array.isArray(nearestCctvList)) {
+                    const imageSrc = 'https://raw.githubusercontent.com/dign1120/carryOn_app/main/src/assets/icons/cctv-icon.png';
+                    const imageSize = new kakao.maps.Size(35, 35); // 마커 이미지 크기
+                    const imageOption = { offset: new kakao.maps.Point(35, 35) }; // 이미지 내 기준점
+
+                    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption); // 마커 이미지 객체
+
+                    nearestCctvList.forEach(cctv => {
+                        const position = new kakao.maps.LatLng(cctv.YCOORD, cctv.XCOORD); // CCTV 위치
+
+                        const marker = new kakao.maps.Marker({
+                            map: map,
+                            position: position,
+                            image: markerImage // 이미지 마커 적용
+                        });
+
+                        // 클릭 이벤트 추가
+                        marker.addListener('click', function() {
+                            sendToReactNative({
+                                type: 'NEAREST CCTV Clicked',
+                                cctv
+                            });
+                        });
+                    });
+                }
             }
         };
         </script>
@@ -173,6 +198,8 @@ export default function KakaoMap({ cctvList = []}: KakaoMapProps) {
                     });
             } else if (data.type === 'CCTV Clicked') {
                 setSelectedCctv(data.cctv);
+            } else if (data.type === 'NEAREST CCTV Clicked') {
+                setSelectedNearestCctv(data.cctv);
             }
             } catch (err) {
                 console.error('Failed to parse message from WebView:', err);
@@ -231,6 +258,51 @@ return (
                 </View>
             </View>
     </Modal>
+
+    {/* nearest cctv 모달 */}
+    <Modal
+    transparent={true}
+    visible={selectedNearestCctv !== null}
+    animationType="fade"
+    onRequestClose={() => setSelectedNearestCctv(null)}
+    >
+        <TouchableWithoutFeedback onPress={() => setSelectedNearestCctv(null)}>
+            <View className="flex-1 justify-center items-center bg-black/50">
+                <View className="bg-white p-1 rounded-lg w-full">
+                {selectedNearestCctv && (
+                    <View>
+                    {/* 상단 헤더 */}
+                    <View className="flex-row items-center mb-1 px-2">
+                        <TouchableOpacity onPress={() => setSelectedNearestCctv(null)}>
+                        <Icon name="chevron-back" size={24} color="#000" />
+                        </TouchableOpacity>
+
+                        <Text className="flex-1 text-center text-base text-gray-800 mr-[24px]">
+                        {selectedNearestCctv.CCTVNAME}
+                        </Text>
+                    </View>
+
+                    {/* WebView (영상) */}
+                    <WebView
+                        source={{
+                        uri: `http://www.utic.go.kr/jsp/map/openDataCctvStream.jsp?key=${REACT_APP_UTIC_OPEN_API_KEY}&cctvid=${selectedNearestCctv.CCTVID}&cctvname=${encodeURIComponent(selectedNearestCctv.CCTVNAME)}&kind=${selectedNearestCctv.KIND}&id=${selectedNearestCctv.ID}`,
+                        }}
+                        originWhitelist={['*']}
+                        javaScriptEnabled={true}
+                        domStorageEnabled={true}
+                        allowsInlineMediaPlayback={true}
+                        mediaPlaybackRequiresUserAction={false}
+                        style={{ width: '100%', height: 500 }}
+                        onLoad={() => console.log("CCTV 웹뷰 로드 완료")}
+                        onError={(e) => console.error("웹뷰 로드 에러:", e.nativeEvent)}
+                    />
+                    </View>
+                )}
+                </View>
+            </View>
+        </TouchableWithoutFeedback>
+    </Modal>
+
     </View>
 );
 }

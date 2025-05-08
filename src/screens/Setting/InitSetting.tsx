@@ -120,7 +120,6 @@ const InitSetting: React.FC<InitSettingProps> = ({navigation}) => {
 
             onConfirm={(date) => {
                 setWorkoutTime(date);
-                console.log(date);
                 setOpenModal(false);
             }}
             

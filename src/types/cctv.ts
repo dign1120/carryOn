@@ -9,3 +9,15 @@ export type CctvItem = {
     cctvname : string,
     cctvurl : string
 }
+
+export type NearestCctvDto = {
+    CCTVID: string;
+    XCOORD: number;
+    MOVIE: string;
+    KIND: string;
+    CENTERNAME: string;
+    YCOORD: number;
+    CCTVNAME: string;
+    ID: string;
+    STRMID: string;
+}
