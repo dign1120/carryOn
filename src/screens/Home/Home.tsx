@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {View, Text, SafeAreaView, Image, TouchableOpacity, Modal, TouchableWithoutFeedback} from 'react-native';
 import { useLocationStore } from '../../stores/locationStore';
 import { fetchCoords, fetchLocation, fetchMyWorkoutTime, fetchSearched, fetchWeatherData } from '../../utils/swrFetcher';
 import useSWR from 'swr';
@@ -33,12 +33,25 @@ const getIconByPTY = (ptyCode: number) => {
   }
 };
 
+const getWindDirection = (deg: number) => {
+  if (deg >= 337.5 || deg < 22.5) return "북풍";
+  if (deg >= 22.5 && deg < 67.5) return "북동풍";
+  if (deg >= 67.5 && deg < 112.5) return "동풍";
+  if (deg >= 112.5 && deg < 157.5) return "남동풍";
+  if (deg >= 157.5 && deg < 202.5) return "남풍";
+  if (deg >= 202.5 && deg < 247.5) return "남서풍";
+  if (deg >= 247.5 && deg < 292.5) return "서풍";
+  if (deg >= 292.5 && deg < 337.5) return "북서풍";
+  return "정보 없음";
+};
+
 const Home: React.FC<HomeProps> = ({navigation}) => {
   const {sourceAddress, destAddress, setSourceAddress, setDestAddress, setRouteCoordinates} = useLocationStore();
   const {setWorkoutTime} = useworkoutTimeStore();
   const [temperature, setTemperature] = useState<string>("");
   const [weatherStatus, setWeatherStatus] = useState<string>("");
   const [icon, setIcon] = useState<any>(getIconByPTY(0));
+  const [weatherDetailInfoModalOpen, setModalOpen] = useState<boolean>(false);
 
   const { data: locationData, error: locationError, isLoading: locationLoading } = useSWR('location', fetchLocation);
   const { data: coordsData, error: coordsError, isLoading: coordsLoading } = useSWR('coords', fetchCoords);
@@ -122,14 +135,17 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
             <Text className='text-[40px] text-black font-regular'>10%</Text>
           </View>
         </View>
+        
         <View className='m-[15px] flex-1'>
-          <Text className='text-center text-[15px]'>현재 날씨</Text>
-          <View className='flex-row align-middle justify-center mb-1'>
-            <Text className='text-[15px]'>{temperature} °C</Text>
-            <Text className='ml-1 bg-[#2561A0] p-[2px] text-white font-regular rounded-lg text-[12px]'>{weatherStatus}</Text>
-          </View>
-          <Image source={icon}
-            className='w-[75px] h-[75px] self-center'/>
+          <TouchableOpacity onPress={() => {setModalOpen(true)}}>
+            <Text className='text-center text-[15px]'>현재 날씨</Text>
+            <View className='flex-row align-middle justify-center mb-1'>
+              <Text className='text-[15px]'>{temperature} °C</Text>
+              <Text className='ml-1 bg-[#2561A0] p-[2px] text-white font-regular rounded-lg text-[12px]'>{weatherStatus}</Text>
+            </View>
+            <Image source={icon}
+              className='w-[75px] h-[75px] self-center'/>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -149,6 +165,95 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
           <Text className='text-[18px] font-light' >{destAddress?.searchText}</Text>
         </View>
       </View>
+
+
+      <Modal
+      transparent={true}
+      visible={weatherDetailInfoModalOpen !== false}
+      animationType="fade"
+      onRequestClose={() => setModalOpen(false)}
+    >
+      <TouchableWithoutFeedback onPress={() => setModalOpen(false)}>
+        <View className="flex-1 justify-center items-center bg-black/20 px-4">
+          <View className="bg-white rounded-2xl w-full p-5 max-w-md">
+            {weatherData?.response?.body?.items?.item && (
+              <View>
+                {/* 헤더 */}
+                <Text className="text-center text-xl font-bold text-gray-800 mb-5">
+                  🌦️ 기후 상세정보
+                </Text>
+
+                {/* 항목별 정보 */}
+                {(() => {
+                  const items = weatherData.response.body.items.item;
+                  const get = (cat: string) =>
+                    items.find((i) => i.category === cat)?.obsrValue;
+
+                  const PTY = get("PTY") ?? "0";
+                  const REH = get("REH");
+                  const RN1 = get("RN1");
+                  const VEC = parseFloat(get("VEC") ?? "0").toFixed(0);
+
+                  const rainfallTypes: Record<string, string> = {
+                    "0": "맑음",
+                    "1": "비",
+                    "2": "비/눈",
+                    "3": "눈",
+                    "5": "빗방울",
+                    "6": "빗방울/눈날림",
+                    "7": "눈날림",
+                  };
+
+                  const weather = rainfallTypes[PTY];
+
+                  return (
+                    <View className="space-y-5">
+                      {/* 1. 날씨 */}
+                      <View className="flex-row justify-between items-center border-[#3B82F6] border-b pb-3">
+                        <Text className="text-lg text-gray-700 font-medium">현재 날씨</Text>
+                        <View className="flex-row items-center space-x-3">
+                          <Text className="text-xl font-bold text-blue-600">{weather}</Text>
+                          {PTY === "1" && <Text className="text-2xl">🌧️</Text>}
+                          {PTY === "3" && <Text className="text-2xl">❄️</Text>}
+                          {PTY === "0" && <Text className="text-2xl">☀️</Text>}
+                        </View>
+                      </View>
+
+                      {/* 2. 습도 */}
+                      <View className="flex-row justify-between items-center border-[#3B82F6] border-b pb-3">
+                        <Text className="text-lg text-gray-700 font-medium">습도</Text>
+                        <Text className="text-xl font-bold text-gray-800">{REH}%</Text>
+                      </View>
+
+                      {/* 3. 강수량 (비가 올 때만) */}
+                      {PTY !== "0" && (
+                        <View className="flex-row justify-between items-center border-[#3B82F6] border-b pb-3">
+                          <Text className="text-lg text-gray-700 font-medium">1시간 강수량</Text>
+                          <Text className="text-xl font-bold text-gray-800">{RN1} mm</Text>
+                        </View>
+                      )}
+
+                      {/* 4. 풍향 */}
+                      <View className="flex-row justify-between items-center">
+                        <Text className="text-lg text-gray-700 font-medium">풍향</Text>
+                        <View className="flex-row items-center space-x-2">
+                          <Text className="text-lg text-gray-600">{getWindDirection(Number(VEC))}</Text>
+                          <View style={{ transform: [{ rotate: `${VEC}deg` }] }}>
+                            <Text className="text-2xl">🧭</Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  );
+                })()}
+              </View>
+            )}
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+      </Modal>
+
+
 
     </SafeAreaView>
   );
