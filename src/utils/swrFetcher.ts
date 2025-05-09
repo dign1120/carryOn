@@ -40,11 +40,16 @@ export const fetchWeatherData = async (lat : number, lon : number) => {
 
     const getBaseTime = () => {
         const now = new Date();
-        const hour = now.getHours();
-    
-        // 정각을 맞추기 위해 분은 00으로 고정
-        const baseTime = `${hour < 10 ? '0' : ''}${hour}00`;
-        return baseTime;
+        const minutes = now.getMinutes();
+        let hour = now.getHours();
+        if (minutes < 10) {
+            hour -= 1;
+            }
+        if (hour < 0) {
+            hour = 23;
+        }
+        const formattedHour = hour < 10 ? `0${hour}` : `${hour}`;
+        return `${formattedHour}00`;
     };
         
     const getBaseDate = () => {

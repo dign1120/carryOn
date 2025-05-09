@@ -5,16 +5,40 @@ import { fetchCoords, fetchLocation, fetchMyWorkoutTime, fetchSearched, fetchWea
 import useSWR from 'swr';
 import { useworkoutTimeStore } from '../../stores/workoutTimeStore';
 import KakaoMap from '../../components/kakaoMap/KakaoMap';
-import { WeatherResponse } from '../../types/weather';
+import { WeatherResponse, getPTYDescription } from '../../types/weather';
 
 type HomeProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
+};
+
+
+const getIconByPTY = (ptyCode: number) => {
+  switch (ptyCode) {
+    case 0:
+      return require("../../assets/icons/sunny-icon.png"); // 맑은 날
+    case 1:
+      return require("../../assets/icons/rain-icon.png"); // 비 오는 날
+    case 2:
+      return require("../../assets/icons/rain-snow-icon.png"); // 비와 눈
+    case 3:
+      return require("../../assets/icons/snow-icon.png"); // 눈 오는 날
+    case 5:
+      return require("../../assets/icons/drizzle-icon.png"); // 빗방울
+    case 6:
+      return require("../../assets/icons/drizzle-icon.png"); // 빗방울/눈날림
+    case 7:
+      return require("../../assets/icons/drizzle-icon.png"); // 눈날림
+    default:
+      return require("../../assets/icons/sunny-icon.png"); // 기본 아이콘
+  }
 };
 
 const Home: React.FC<HomeProps> = ({navigation}) => {
   const {sourceAddress, destAddress, setSourceAddress, setDestAddress, setRouteCoordinates} = useLocationStore();
   const {setWorkoutTime} = useworkoutTimeStore();
   const [temperature, setTemperature] = useState<string>("");
+  const [weatherStatus, setWeatherStatus] = useState<string>("");
+  const [icon, setIcon] = useState<any>(getIconByPTY(0));
 
   const { data: locationData, error: locationError, isLoading: locationLoading } = useSWR('location', fetchLocation);
   const { data: coordsData, error: coordsError, isLoading: coordsLoading } = useSWR('coords', fetchCoords);
@@ -65,10 +89,19 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
   }, [sourceAddress, destAddress, locationLoading, coordsLoading]);
 
   useEffect(() => {
-    const temp = weatherData?.response?.body?.items?.item
+    const temp : string = weatherData?.response?.body?.items?.item
     .find((item) => item.category === 'T1H')
     ?.obsrValue ?? '정보 없음';
-    setTemperature(temp);  // 값을 상태로 설정
+
+    const ptyCodeNumber : number = Number(
+      weatherData?.response?.body?.items?.item
+        .find((item) => item.category === 'PTY')
+        ?.obsrValue ?? -1
+    );
+
+    setWeatherStatus(getPTYDescription(ptyCodeNumber));
+    setIcon(getIconByPTY(ptyCodeNumber));
+    setTemperature(temp);
   }, [weatherData])
 
   return (
@@ -93,9 +126,9 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
           <Text className='text-center text-[15px]'>현재 날씨</Text>
           <View className='flex-row align-middle justify-center mb-1'>
             <Text className='text-[15px]'>{temperature} °C</Text>
-            <Text className='ml-1 bg-[#2561A0] p-[2px] text-white font-regular rounded-lg text-[12px]'>맑음</Text>
+            <Text className='ml-1 bg-[#2561A0] p-[2px] text-white font-regular rounded-lg text-[12px]'>{weatherStatus}</Text>
           </View>
-          <Image source={require("../../assets/icons/weather_icon.png")}
+          <Image source={icon}
             className='w-[75px] h-[75px] self-center'/>
         </View>
       </View>
