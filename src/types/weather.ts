@@ -47,3 +47,12 @@ export function getPTYDescription(code: number): string {
         return '알 수 없음';
     }
 }
+
+export type RainPercentageResponse = {
+    id: {
+        timestamp: number;
+        date: string; // ISO 날짜 문자열
+    };
+    percentage: number;
+    memberId: string;
+};

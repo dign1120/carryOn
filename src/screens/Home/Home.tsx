@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, SafeAreaView, Image, TouchableOpacity, Modal, TouchableWithoutFeedback} from 'react-native';
 import { useLocationStore } from '../../stores/locationStore';
-import { fetchCoords, fetchLocation, fetchMyWorkoutTime, fetchSearched, fetchWeatherData } from '../../utils/swrFetcher';
+import { fetchCoords, fetchLocation, fetchMyRainPercentage, fetchMyWorkoutTime, fetchSearched, fetchWeatherData } from '../../utils/swrFetcher';
 import useSWR from 'swr';
 import { useworkoutTimeStore } from '../../stores/workoutTimeStore';
 import KakaoMap from '../../components/kakaoMap/KakaoMap';
-import { WeatherResponse, getPTYDescription } from '../../types/weather';
+import { WeatherResponse, getPTYDescription, RainPercentageResponse } from '../../types/weather';
 
 type HomeProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
@@ -52,11 +52,13 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
   const [weatherStatus, setWeatherStatus] = useState<string>("");
   const [icon, setIcon] = useState<any>(getIconByPTY(0));
   const [weatherDetailInfoModalOpen, setModalOpen] = useState<boolean>(false);
+  const [rainPercentage, setRainPercentage] = useState<number>(0);
 
   const { data: locationData, error: locationError, isLoading: locationLoading } = useSWR('location', fetchLocation);
   const { data: coordsData, error: coordsError, isLoading: coordsLoading } = useSWR('coords', fetchCoords);
   const { data: workoutTime, error: workoutError } = useSWR('workout-time', fetchMyWorkoutTime);
   const { data: searchedData, error: searchedError } = useSWR('searched', fetchSearched);
+  const { data: rainPercentageData, error: rainPercentageError } = useSWR<RainPercentageResponse>('rainPercentage', fetchMyRainPercentage);
   const { data: weatherData, error: weatherError } = useSWR<WeatherResponse>(
       sourceAddress?.coordinates?.latitude && sourceAddress.coordinates.longitude ? ['weather', sourceAddress?.coordinates?.latitude, sourceAddress.coordinates.longitude] : null,
       ([, lat, lon]: [string, number, number]) => fetchWeatherData(lat, lon)
@@ -90,7 +92,11 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
     if(workoutTime){
       setWorkoutTime(new Date(workoutTime.startTime));
     }
-  }, [locationData, coordsData, workoutTime, searchedData]);
+
+    if(rainPercentageData){
+      setRainPercentage(rainPercentageData.percentage)
+    }
+  }, [locationData, coordsData, workoutTime, searchedData, rainPercentageData]);
 
   useEffect(() => {
     const allLoaded = !locationLoading && !coordsLoading;
@@ -132,7 +138,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         <View className='flex m-[15px] flex-1'>
           <Text className='text-center text-black text-[15px] font-light'>출근길까지 강수확률</Text>
           <View className='flex-1 justify-center items-center'>
-            <Text className='text-[40px] text-black font-regular'>10%</Text>
+            <Text className='text-[40px] text-black font-regular'>{rainPercentage}%</Text>
           </View>
         </View>
         

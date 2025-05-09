@@ -35,6 +35,14 @@ export const fetchMyWorkoutTime = async () => {
     return response.data;
 };
 
+export const fetchMyRainPercentage = async () => {
+    const token = await AsyncStorage.getItem('jwt-token');
+    const response = await axios.get('http://127.0.0.1:8080/api/weather', {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+};
+
 export const fetchWeatherData = async (lat : number, lon : number) => {
     const baseUrl = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst';
 
