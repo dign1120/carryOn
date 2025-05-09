@@ -137,7 +137,12 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         </View>
         
         <View className='m-[15px] flex-1'>
-          <TouchableOpacity onPress={() => {setModalOpen(true)}}>
+          <TouchableOpacity 
+            onPress={() => {
+              if(weatherData?.response?.body.items.item){
+                setModalOpen(true)}
+              }}
+            >
             <Text className='text-center text-[15px]'>현재 날씨</Text>
             <View className='flex-row align-middle justify-center mb-1'>
               <Text className='text-[15px]'>{temperature} °C</Text>
