@@ -285,7 +285,7 @@ return (
                     {/* WebView (영상) */}
                     <WebView
                         source={{
-                        uri: `http://www.utic.go.kr/jsp/map/openDataCctvStream.jsp?key=${REACT_APP_UTIC_OPEN_API_KEY}&cctvid=${selectedNearestCctv.CCTVID}&cctvname=${encodeURIComponent(selectedNearestCctv.CCTVNAME)}&kind=${selectedNearestCctv.KIND}&id=${selectedNearestCctv.ID}`,
+                        uri: `http://www.utic.go.kr/jsp/map/openDataCctvStream.jsp?key=${REACT_APP_UTIC_OPEN_API_KEY}&cctvid=${selectedNearestCctv.CCTVID}&cctvname=${encodeURIComponent(selectedNearestCctv.CCTVNAME)}&kind=${selectedNearestCctv.KIND}&id=${selectedNearestCctv.ID}&cctvip=${selectedNearestCctv.CCTVIP}&cctvch=${selectedNearestCctv.CH}`,
                         }}
                         originWhitelist={['*']}
                         javaScriptEnabled={true}

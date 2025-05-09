@@ -12,6 +12,8 @@ export type CctvItem = {
 
 export type NearestCctvDto = {
     CCTVID: string;
+    CCTVIP: string;
+    CH:string;
     XCOORD: number;
     MOVIE: string;
     KIND: string;
