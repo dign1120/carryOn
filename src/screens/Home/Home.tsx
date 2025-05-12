@@ -94,7 +94,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
     }
 
     if(rainPercentageData){
-      setRainPercentage(rainPercentageData.percentage)
+      setRainPercentage(Math.round(rainPercentageData.percentage));
     }
   }, [locationData, coordsData, workoutTime, searchedData, rainPercentageData]);
 
@@ -125,15 +125,23 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
 
   return (
     <SafeAreaView className="bg-white h-full">
-      <View className='flex-row space-x-12 mt-[24px] mb-[24px]'>
-        <Text className='ml-[24px] text-[22px] font-bold'>우산을 안 챙기셔도 될 것 같아요!</Text>
-        <TouchableOpacity onPress = {() => navigation.navigate("ChangeSetting")}>
-          <Image source={require("../../assets/icons/myicon.png")}
-          className='w-[25px] h-[25px] mr-[24px]'
+      <View className='flex-row justify-between items-center mt-[24px] mb-[24px] px-[24px]'>
+        <Text className='text-[22px] font-bold flex-1 mr-[8px]'>
+          {rainPercentage >= 80
+            ? '비가 많이 올 예정이에요!\n꼭 우산 챙기세요!'
+            : rainPercentage >= 60
+            ? '우산을 챙기셔야 할 것 같아요!'
+            : rainPercentage >= 30
+            ? '조금 올 수도 있어요.\n작은 우산 챙기면 좋아요!'
+            : '우산을 안 챙기셔도 될 것 같아요!'}
+        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("ChangeSetting")}>
+          <Image
+            source={require("../../assets/icons/myicon.png")}
+            className='w-[25px] h-[25px]'
           />
         </TouchableOpacity>
       </View>
-
       <View className='flex flex-row ml-[24px] mr-[24px] bg-[#3B82F6] h-[145px] rounded-md'>
         <View className='flex m-[15px] flex-1'>
           <Text className='text-center text-black text-[15px] font-light'>출근길까지 강수확률</Text>
