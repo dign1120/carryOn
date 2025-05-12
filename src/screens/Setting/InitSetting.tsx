@@ -64,8 +64,7 @@ const InitSetting: React.FC<InitSettingProps> = ({navigation}) => {
         );
 
         const localWorkoutTime = new Date(workoutTime);
-        const kstOffset = 15 * 60 * 60 * 1000; // KST는 UTC보다 9시간 차이
-        const utcWorkoutTime = new Date(localWorkoutTime.getTime() - kstOffset);
+        const utcWorkoutTime = new Date(localWorkoutTime.getTime() - (localWorkoutTime.getTimezoneOffset() * 60000));
 
         await axios.post('http://127.0.0.1:8080/api/setting-worktime',
             {
