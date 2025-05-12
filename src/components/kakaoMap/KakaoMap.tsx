@@ -4,7 +4,6 @@ import { WebView } from 'react-native-webview';
 import { REACT_APP_KAKAO_MAP_JAVASCRIPT_API_KEY, REACT_APP_KAKAO_MAP_REST_API_KEY, REACT_APP_UTIC_OPEN_API_KEY } from '@env';
 import { useLocationStore } from '../../stores/locationStore';
 import { CctvItem, NearestCctvDto } from '../../types/cctv';
-import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 type KakaoMapProps = {
@@ -244,11 +243,13 @@ return (
                                     {selectedCctv.cctvname}
                                 </Text>
                             </View>
-                            <Video
+                            <WebView
                                     source={{uri: selectedCctv.cctvurl}} // 스트리밍 URL
                                     style={{ width: '100%', height: 500 }}
-                                    controls={false}  // 기본적인 비디오 컨트롤러 제공
-                                    resizeMode="cover"  // 비디오 크기 조절 모드
+                                    javaScriptEnabled={true}
+                                    domStorageEnabled={true}
+                                    allowsInlineMediaPlayback={true}
+                                    mediaPlaybackRequiresUserAction={false}
                                     onError={(e) => console.error("비디오 스트리밍 에러:", e)}
                                     onLoad={(e) => console.log("비디오 로드됨:", e)}
                             />
