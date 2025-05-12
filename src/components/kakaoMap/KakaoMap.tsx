@@ -295,6 +295,18 @@ return (
                         style={{ width: '100%', height: 500 }}
                         onLoad={() => console.log("CCTV 웹뷰 로드 완료")}
                         onError={(e) => console.error("웹뷰 로드 에러:", e.nativeEvent)}
+                        injectedJavaScript={`(function() {
+                            // CCTV 비디오 확대 기능
+                            const cctvVideo = document.querySelector('video');
+
+                            if (cctvVideo) {
+                                cctvVideo.style.position = 'absolute';
+                                cctvVideo.style.top = '50%';
+                                cctvVideo.style.left = '50%';
+                                cctvVideo.style.transform = 'translate(-50%, -50%) scale(3)';
+                                cctvVideo.style.transformOrigin = 'center';
+                            }
+                        })();`}
                     />
                     </View>
                 )}
