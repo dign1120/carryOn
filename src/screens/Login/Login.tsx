@@ -80,7 +80,7 @@ const Login: React.FC<LoginProps> = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <View className='mt-[54px] flex-row mb-[163px] justify-center'>
-          <TouchableOpacity>
+          <TouchableOpacity onPress = {() => navigation.navigate("Join")}>
             <Text className='text-[#767676]'>회원가입</Text>
           </TouchableOpacity>
           <Text className='text-[#767676]'> | </Text>

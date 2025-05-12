@@ -14,6 +14,7 @@ import DestInputPage from './src/screens/Setting/DestInputPage';
 import Login from './src/screens/Login/Login';
 import DetailKakaoMap from './src/screens/Map/DetailKakaoMap';
 import { jwtDecode } from "jwt-decode";
+import Join from './src/screens/Join/Join';
 
 
 const Stack = createNativeStackNavigator();
@@ -62,6 +63,7 @@ export default function App() {
           screenOptions={{headerShown: false}}
           initialRouteName={isAuthenticated ? 'Home' : 'Login'}>
           <Stack.Screen name = "Login" component={Login} />
+          <Stack.Screen name = "Join" component={Join} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="ChangeSetting" component={ChangeSetting} />
           <Stack.Screen name="InitSetting" component={InitSetting} />
