@@ -5,6 +5,7 @@ import DatePicker from 'react-native-date-picker';
 import { useworkoutTimeStore } from '../../stores/workoutTimeStore';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { scheduleLocalNotification } from '../../utils/notification';
 
 type InitSettingProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
@@ -76,6 +77,8 @@ const InitSetting: React.FC<InitSettingProps> = ({navigation}) => {
                 },
             }
         );
+
+        scheduleLocalNotification(workoutTime);
 
         navigation.navigate("Home");
     }

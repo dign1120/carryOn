@@ -1877,6 +1877,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNCPushNotificationIOS (1.11.0):
+    - React-Core
   - RNScreens (4.10.0):
     - DoubleConversion
     - glog
@@ -2033,6 +2035,7 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -2193,6 +2196,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
@@ -2276,6 +2281,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 16700ce5938fd79c1ff4c5b5735f10830f2e6bd3
   ReactCommon: 1257efa9d0b07517d8b79bb4055eaefac1204807
   RNCAsyncStorage: 39c42c1e478e1f5166d1db52b5055e090e85ad66
+  RNCPushNotificationIOS: 6c4ca3388c7434e4a662b92e4dfeeee858e6f440
   RNScreens: 5621e3ad5a329fbd16de683344ac5af4192b40d3
   RNVectorIcons: 941a39b5d3b9d8cf8ac2e2fc09b07bfafbcf9796
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
@@ -2283,4 +2289,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 9f1fc5b89ba8c6e06db0c2a88ba7b4984bd53652
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

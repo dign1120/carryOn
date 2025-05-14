@@ -15,6 +15,7 @@ import Login from './src/screens/Login/Login';
 import DetailKakaoMap from './src/screens/Map/DetailKakaoMap';
 import { jwtDecode } from "jwt-decode";
 import Join from './src/screens/Join/Join';
+import { configurePushNotification } from './src/utils/notification';
 
 
 const Stack = createNativeStackNavigator();
@@ -22,6 +23,10 @@ enableScreens();
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  
+  useEffect(() => {
+    configurePushNotification();
+  }, [])
   
   useEffect(() => {
     const checkAuthentication = async () => {

@@ -5,6 +5,7 @@ import DatePicker from 'react-native-date-picker';
 import { useworkoutTimeStore } from '../../stores/workoutTimeStore';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { scheduleLocalNotification } from '../../utils/notification';
 
 type ChangeSettingProps = {
   navigation: any; // 필요하다면 any 대신 정확한 타입 사용
@@ -65,6 +66,8 @@ const ChangeSetting: React.FC<ChangeSettingProps> = ({navigation}) => {
 
         const localWorkoutTime = new Date(workoutTime);
         const utcWorkoutTime = new Date(localWorkoutTime.getTime() - (localWorkoutTime.getTimezoneOffset() * 60000));
+
+        scheduleLocalNotification(workoutTime);
 
         await axios.post('http://127.0.0.1:8080/api/setting-worktime',
             {
